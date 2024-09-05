@@ -44,6 +44,8 @@ class _MainAsstsState extends State<MainAssts> {
   @override
   void initState() {
     Get_ID_Death();
+
+
   }
 
   Widget build(BuildContext context) {
@@ -168,6 +170,10 @@ class _MainAsstsState extends State<MainAssts> {
                 })),
                 Center(
                     child: btn("التالي", Colors.white, 25, false, () {
+
+
+
+
                   if (data.length > 0) {
                     Get.to(Main_inheritance(), arguments: id);
                   } else {

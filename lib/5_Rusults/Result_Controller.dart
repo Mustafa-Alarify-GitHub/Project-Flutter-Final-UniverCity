@@ -272,7 +272,7 @@ class Result_Controller extends GetxController {
         double velue = mony / 4;
         array_mony[wife] = velue / array_[wife];
         ruslt_mony -= mony / 4;
-
+//
         if (array_[father] > 0 && array_[mather] > 0) {
           array_mony[father] = ruslt_mony / 2;
           array_mony[mather] = ruslt_mony / 2;

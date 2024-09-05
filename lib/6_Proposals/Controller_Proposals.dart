@@ -1,15 +1,19 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mustafa/2_Home/mainScreen.dart';
 import 'package:mustafa/API/Api.dart';
 import 'package:mustafa/API/Links.dart';
 import 'package:mustafa/SherdRefrance/shared_preferences.dart';
 import '../My_pro.dart';
+import 'Widget/PDF.dart';
 
 class Controller_Proposals extends GetxController {
   bool lodding = true;
   List data_In = [];
   List data_Items = [];
+  int index_Get_Name_Inh = 0;
+  Map map_PDF = {};
 
   Get_Items() async {
     var id = await shared.getData(shared.key_ID);
@@ -72,13 +76,25 @@ class Controller_Proposals extends GetxController {
           can_Take = true;
         }
       }
-
       if (can_Take && price >= double.parse(item_Price[index_Random])) {
         price -= double.parse(item_Price[index_Random]);
         item_Name_In.add(item_Name[index_Random]);
         item_Price_In.add(item_Price[index_Random]);
         item_BookedUp.add(item_Name[index_Random]);
       }
+    }
+
+    map_PDF[index_Get_Name_Inh] = {
+      "name_In": "${data_In[index_Get_Name_Inh]["Inh_name"]}",
+      "type": "${data_In[index_Get_Name_Inh]["type"]}",
+      "name_i": item_Name_In,
+      "price_i": item_Price_In,
+      "totle_price": price,
+    };
+
+
+    if (index_Get_Name_Inh != data_In.length-1) {
+      index_Get_Name_Inh++;
     }
     return Column(
       children: [
@@ -125,7 +141,8 @@ class Controller_Proposals extends GetxController {
                       style: TextStyle(fontSize: 20),
                     ))),
           ],
-        )
+        ),
+
       ],
     );
   }
@@ -141,7 +158,16 @@ class Controller_Proposals extends GetxController {
   }
 
   Updata_Page() {
+    index_Get_Name_Inh = 0;
+    map_PDF.clear();
     item_BookedUp.clear();
     update();
+  }
+
+  Print_PDF() async {
+
+    PDF.Get_NameDe(map_PDF,data_Items);
+   await PDF.createPdf();
+   Get.offAll(()=>mainScreen());
   }
 }

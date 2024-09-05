@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mustafa/2_Home/Home_Controller.dart';
 import 'package:mustafa/API/Api.dart';
 import 'package:mustafa/API/Links.dart';
 import 'package:mustafa/My_pro.dart';
 import 'package:mustafa/SherdRefrance/shared_preferences.dart';
+import 'package:path/path.dart';
 
 import '../3_Assets/Pages/MainAssets.dart';
 
@@ -15,12 +20,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Home_Controller home_controller = Get.put(Home_Controller());
   TextEditingController nameDeat = TextEditingController();
   TextEditingController c = TextEditingController();
+
   bool fouesMale = false;
   bool fouesFamale = false;
   int sex = 3;
   String sexstring = "";
+
+  File? file;
+
+  ImagePicker piker = ImagePicker();
+
+  Future<File?> _takePicture() async {
+    final pickedImage =
+        await ImagePicker().getImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      return File(pickedImage.path);
+    }
+    return null;
+  }
+
+  Future<File?> _pickImageFromGallery() async {
+    final pickedImage =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      return File(pickedImage.path);
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +125,94 @@ class _HomeState extends State<Home> {
                   const SizedBox(
                     height: 30,
                   ),
-                  Text_Field(c, TextInputType.name, "حصر وراثي", 5),
+                  home_controller.imgpiker == null
+                      ? btn("الحصر الوراثي", co2, 25, true, () {
+                          Get.bottomSheet(
+                              backgroundColor: Colors.white,
+                              Container(
+                                height: 100,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                              final imageFile =
+                              await _takePicture();
+                              if (imageFile != null) {
+                              home_controller.imgpiker =
+                              imageFile;
+                              Get.back();
+                              setState(() {});
+                              }
+                              },
+                                      child: Column(
+                                        children: [
+                                         Icon(
+                                                Icons.camera_alt,
+                                                color: co1,
+                                                size: 50,
+                                              ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "الكاميره",
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        final imageFile =
+                                            await _pickImageFromGallery();
+                                        if (imageFile != null) {
+                                          home_controller.imgpiker = imageFile;
+                                          print(imageFile);
+                                          Get.back();
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.image,
+                                            color: co1,
+                                            size: 50,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "الاستديوه",
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ));
+                        })
+                      : Column(
+                          children: [
+                            Image.file(
+                              home_controller.imgpiker,
+                              width: 200,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  home_controller.imgpiker = null;
+                                  setState(() {});
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 40,
+                                )),
+                          ],
+                        ),
                   const SizedBox(
                     height: 30,
                   ),

@@ -35,7 +35,7 @@ class sqlDb {
     batch.execute('''
     create table Inheritance(
     id integer not null primary key autoincrement,
-    name text not null,
+    name text not null
     )
     ''');
 

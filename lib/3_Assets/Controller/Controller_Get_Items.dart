@@ -22,9 +22,7 @@ class Controller_Get_Items extends GetxController {
       data.addAll(ruspones["data"]);
     }
     loding = false;
-    print("=======================");
-    print("=======================");
-    print("=======================");
+
     update();
   }
 @override

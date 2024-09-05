@@ -1,6 +1,6 @@
 class LinkApp{
 
-  static const String server="http://192.168.84.1/Final_UnverCity";
+  static const String server="http://192.168.105.1/Final_UnverCity";
   // Add Death
   static const String Death="$server/info_Death.php";
   // Add items

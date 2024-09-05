@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Color co1 = Color.fromRGBO(44, 78, 103, 1);
@@ -63,13 +64,21 @@ Widget myApper() {
   );
 }
 
+Widget myApper2(txt1_) {
+  return Container(
+    child:Text(txt1_,  style: TextStyle(
+        fontSize:25 ,
+        fontWeight:
+        FontWeight.bold ),textAlign: TextAlign.center,),
+  );
+}
+
 Widget btn_2(txt_, fun()) {
   return MaterialButton(
     onPressed: fun,
     child: Container(
       width: 80,
       height: 50,
-      // padding: EdgeInsets.only(left: 15,right: 15),
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(35), color: co1),
       child: Center(child: txt(txt_, Colors.white, 25, false)),

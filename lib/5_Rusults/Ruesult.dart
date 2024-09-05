@@ -8,7 +8,9 @@ import 'Result_Controller.dart';
 class Result extends StatelessWidget {
   final List data;
 
-  const Result({super.key, required this.data});
+  const Result
+
+  ({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -40,34 +42,37 @@ class Result extends StatelessWidget {
                         width: full,
                         child: controller.lodding
                             ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
+                          child: CircularProgressIndicator(),
+                        )
                             : ListView.builder(
-                                itemCount: controller.data_in.length,
-                                itemBuilder: (context, index) {
-                                  return Card_Ruslt(
-                                      name: controller.data_in[index]
-                                          ['Inh_name'],
-                                      price: controller.data_in[index]['price']=="0.0"?"محجوب":controller.data_in[index]['price'],
-                                      type: controller.data_in[index]['type'],
-                                      N: ((100 / controller.mony) *
-                                                      double.parse(
-                                                          controller.data_in[index]
-                                                              ['price']))
-                                                  .toString()
-                                                  .length >
-                                              3
-                                          ? ((100 / controller.mony) *
-                                                  double.parse(controller
-                                                      .data_in[index]['price']))
-                                              .toString()
-                                              .substring(0, 4)
-                                          :
-                                          ((100 / controller.mony) *
-                                                  double.parse(controller.data_in[index]['price']))
-                                              .toString()
-                                              );
-                                }),
+                            itemCount: controller.data_in.length,
+                            itemBuilder: (context, index) {
+                              return Card_Ruslt(
+                                  name: controller.data_in[index]
+                                  ['Inh_name'],
+                                  price: controller.data_in[index]['price'] ==
+                                      "0.0" ? "محجوب" : controller
+                                      .data_in[index]['price'],
+                                  type: controller.data_in[index]['type'],
+                                  N: ((100 / controller.mony) *
+                                      double.parse(
+                                          controller.data_in[index]
+                                          ['price']))
+                                      .toString()
+                                      .length >
+                                      3
+                                      ? ((100 / controller.mony) *
+                                      double.parse(controller
+                                          .data_in[index]['price']))
+                                      .toString()
+                                      .substring(0, 4)
+                                      :
+                                  ((100 / controller.mony) *
+                                      double.parse(
+                                          controller.data_in[index]['price']))
+                                      .toString()
+                              );
+                            }),
                       );
                     })),
             btn("اصدار مقترح للقسمه", co2, 22, true, () {

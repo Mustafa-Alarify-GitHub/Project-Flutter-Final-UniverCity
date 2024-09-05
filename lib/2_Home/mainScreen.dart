@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
+import 'package:mustafa/2_Home/About%20us.dart';
+import 'package:mustafa/2_Home/MazhabZaidiPage.dart';
 import 'package:mustafa/My_pro.dart';
 
-import '../About us.dart';
-import 'Home.dart';
+ import 'Home.dart';
 
 class mainScreen extends StatefulWidget {
   @override
   State<mainScreen> createState() => _mainScreenState();
 }
-
+// About()
 class _mainScreenState extends State<mainScreen> {
   var index_page = 1;
-  List<Widget> pages = [About(),Home(), Home() ];
+  List<Widget> pages = [About(),Home(), MazhabZaidiPage() ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class _mainScreenState extends State<mainScreen> {
                 label: "Home", tooltip: "Home"),
             BottomNavigationBarItem(
                 icon: Image.asset("images/aa.png",width: index_page == 2? 55 : 35,),
-                label: "aa", tooltip: "aaa"),
+                label: "Mazhab", tooltip: "MazhabZaidi"),
           ],
           currentIndex: index_page,
           selectedItemColor: Colors.white,
